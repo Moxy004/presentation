@@ -8,7 +8,12 @@ const app = express();
 const port = process.env.PORT || 8080;  // Use dynamic port
 
 // Enable CORS for your frontend domain
-app.use(cors({ origin: 'https://pwa---dialektogo.web.app' }));
+
+// CORS setup to allow the DialektoGo Firebase Hosting domain
+app.use(cors({
+  origin: 'https://pwa---dialektogo.web.app',  // Firebase Hosting domain
+  methods: ['GET', 'POST'],
+}));
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname))); // To serve home.html
