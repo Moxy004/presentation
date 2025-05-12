@@ -146,83 +146,63 @@
     </div>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const chatBox = document.querySelector(".lesson-chat");
-  const faceBtn = document.getElementById("aiic");
-  const closeBtn = document.querySelector(".lesson-chat-close");
-  const sendBtn = document.getElementById("sendBtn");
-  const messageInput = document.getElementById("messageInput");
-  const chatHistory = document.getElementById("chatHistory");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const neutralFace = document.querySelectorAll(".lesson-face")[1];
+      const chatBox = document.querySelector(".lesson-chat");
+      const closeBtn = document.querySelector(".lesson-chat-close");
+      const sendBtn = document.getElementById("sendBtn");
+      const messageInput = document.getElementById("messageInput");
+      const chatHistory = document.getElementById("chatHistory");
 
-  // Initially hide the chat
-  chatBox.style.display = "none";
-
-  faceBtn.addEventListener("click", () => {
-  const isVisible = chatBox.style.display === "flex";
-  chatBox.style.display = isVisible ? "none" : "flex";
-
-  if (!isVisible) {
-    setTimeout(() => {
-      chatHistory.scrollTop = chatHistory.scrollHeight;
-    }, 0);
-  }
-});
-
-  closeBtn.addEventListener("click", () => {
-    chatBox.style.display = "none";
-  });
-
-  function scrollToBottom() {
-    requestAnimationFrame(() => {
-      chatHistory.scrollTop = chatHistory.scrollHeight;
-    });
-  }
-
-  sendBtn.addEventListener("click", async () => {
-    const message = messageInput.value.trim();
-    if (!message) return;
-
-    const userMessage = document.createElement("div");
-    userMessage.className = "chat-message chat-user";
-    userMessage.textContent = message;
-    chatHistory.appendChild(userMessage);
-    scrollToBottom();
-
-    messageInput.value = "";
-
-    try {
-      const res = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+      neutralFace.addEventListener("click", () => {
+        chatBox.style.display = chatBox.style.display === "none" || chatBox.style.display === ""
+          ? "block"
+          : "none";
       });
 
-      const data = await res.json();
+      closeBtn.addEventListener("click", () => {
+        chatBox.style.display = "none";
+      });
 
-      const aiMessage = document.createElement("div");
-      aiMessage.className = "chat-message chat-ai";
-      aiMessage.textContent = data.reply || "No response.";
-      chatHistory.appendChild(aiMessage);
-      scrollToBottom();
-    } catch {
-      const error = document.createElement("div");
-      error.className = "chat-message chat-ai";
-      error.textContent = "❌ Failed to get response.";
-      chatHistory.appendChild(error);
-      scrollToBottom();
-    }
-  });
+      sendBtn.addEventListener("click", async () => {
+  const message = messageInput.value.trim();
+  if (!message) return;
 
-  // Optional: press Enter to send
-  messageInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendBtn.click();
-  });
+  const userMessage = document.createElement("div");
+  userMessage.className = "chat-message chat-user";
+  userMessage.textContent = message;
+  chatHistory.appendChild(userMessage);
+
+  messageInput.value = "";
+
+  try {
+    const res = await fetch("https://presentation-production-793f.up.railway.app", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+
+    const aiMessage = document.createElement("div");
+    aiMessage.className = "chat-message chat-ai";
+    aiMessage.textContent = data.reply || "No response.";
+    chatHistory.appendChild(aiMessage);
+
+  } catch (err) {
+    const errorMessage = document.createElement("div");
+    errorMessage.className = "chat-message chat-ai";
+    errorMessage.textContent = "❌ Failed to get response.";
+    chatHistory.appendChild(errorMessage);
+  }
+
+  chatHistory.scrollTop = chatHistory.scrollHeight;
 });
-
-</script>
-
-
+    });
+  </script>
 
 </body>
 
