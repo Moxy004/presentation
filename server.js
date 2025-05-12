@@ -5,7 +5,7 @@ const { Groq } = require('groq-sdk');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 8080;  // Use dynamic port
+const port = process.env.PORT || 3000;  // Use dynamic port
 
 // Enable CORS for your frontend domain
 app.use(cors({ origin: 'https://pwa---dialektogo.web.app' }));
