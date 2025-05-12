@@ -5,18 +5,28 @@ const { Groq } = require('groq-sdk');
 const path = require('path');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 8080;  // Use dynamic port
 
-app.use(cors());
+// Enable CORS for your frontend domain
+app.use(cors({ origin: 'https://pwa---dialektogo.web.app' }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname))); // To serve home.html
 
+// Initialize Groq with your API key
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+// Test endpoint to check if the backend is working
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Hello from backend!' });
+});
+
+// Handle chat requests to the /chat endpoint
 app.post('/chat', async (req, res) => {
   const userMessage = req.body.message;
 
   try {
+    // Request chat completion from Groq API
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         {
@@ -35,6 +45,7 @@ app.post('/chat', async (req, res) => {
       stream: false
     });
 
+    // Send the chat reply to the frontend
     const fullReply = chatCompletion.choices[0].message.content;
     res.json({ reply: fullReply });
 
@@ -44,6 +55,7 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);
 });
