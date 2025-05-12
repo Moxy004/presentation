@@ -1,0 +1,683 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Caprasimo", serif;
+  font-weight: lighter;
+  font-style: normal;
+}
+
+body {
+  background: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.title {
+  font-size: 44px;
+  color: #FFC164;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.blue {
+  color: #0077cc;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+.orange {
+  font-size: 29px;
+  color: #f4a300;
+  text-decoration: none;
+}
+
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lang-selector img {
+  height: 20px;
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  margin: 2rem 0;
+  justify-content: flex-start; /* Align the content to the left */
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  padding-left: 10%; /* Optional: To shift the content slightly to the right */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+#go-back-btn {
+  cursor: pointer;
+}
+
+.progress_container {
+  position: absolute;
+  left: 50%; /* Centers the progress bar horizontally */
+  transform: translateX(-50%); /* Adjusts the position to make sure it's exactly centered */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  max-width: 500px; /* Limit the width of the progress bar container */
+}
+
+.progress_bar {
+  width: 100%;
+  height: 20px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  border-radius: 10px;
+  background-color: #eee;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+
+
+/* WebKit-based browsers */
+.progress_bar::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.progress_bar::-webkit-progress-value {
+  background-color: #00A2FF;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+/* Firefox */
+.progress_bar::-moz-progress-bar {
+  background-color: #00A2FF;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+
+#slide-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+#words-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+#words-buttons .btn {
+  width: 300px;
+  border: none;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  padding: 12px 20px;
+  background: #B73164;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+#words-buttons .btn:hover {
+  background-color: #FFC164;
+  color: #B73164;
+}
+
+#words-buttons .btn.active {
+  background-color: #FFC164;
+  color: #B73164;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.meaning_text {
+  text-align: center;
+  color: #FFC164;
+  font-size: 1.4rem;
+}
+
+.audio-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.audio-btn {
+  background-color: #B73164;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.audio-btn img {
+  height: 30px;
+}
+
+.audio-section h2 {
+  color: #0077cc;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.audio-section p {
+  color: #0077cc;
+  font-size: 1.2rem;
+}
+
+.wrapper_questions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.meaning_text {
+  color: #FFC164;
+  font-size: 1.4rem;
+}
+
+.match-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5rem; /* Space between A and B columns */
+  margin-top: 2rem;
+}
+
+.buttons_A, .buttons_B {
+  display: flex;
+  font-size: 20px;
+  flex-direction: column;
+  gap: 1rem; /* Space between buttons */
+}
+
+.option-A,
+.option-B {
+  border-radius: 10px;
+  border-color: transparent;
+  background: rgba(183, 174, 174, 0.5);
+  display: flex;
+  width: 167px;
+  height: 47px;
+  padding: 8px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #B73164;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 20px;
+}
+
+.option-A:disabled,
+.option-B:disabled {
+  background-color: white;
+  color: white;
+  
+}
+
+.option-A.clicked, .option-B.clicked {
+  background-color: #cce5ff; /* light blue when selected */
+}
+
+.correct {
+  animation: pulseGreen .5s;
+}
+
+@keyframes pulseGreen {
+  0% { background-color: #8BC34A; transform: scale(1); }
+  50% { background-color: #4CAF50; transform: scale(1.1); }
+  100% { background-color: #8BC34A; transform: scale(1); }
+}
+
+.incorrect {
+  animation: pulseRed .5s;
+}
+
+@keyframes pulseRed {
+  0% { background-color: #f44336; transform: scale(1); }
+  50% { background-color: #e53935; transform: scale(1.1); }
+  100% { background-color: #f44336; transform: scale(1); }
+}
+
+.option-A:hover, .option-B:hover {
+  background-color: rgba(183, 174, 174, 0.8); /* Lighter shade when hovered */
+  cursor: pointer;
+}
+.option-A.clicked, .option-B.clicked {
+  background-color: #cce5ff; /* Light blue when selected */
+}
+
+.Continue_btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem 4rem; /* Reduced top/bottom padding */ /* Adjust this as needed */
+}
+
+.Continue_btn button {
+  background-color: #FFC164;
+  color: #B73164;
+  font-size: 1.4rem;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.Continue_btn button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.correct {
+  background-color: lightgreen !important;
+  color: white;
+}
+
+.incorrect {
+  background-color: red !important;
+  color: white;
+}
+.confirm-exit {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem;
+  height: 80vh;
+  box-sizing: border-box;
+}
+
+.confirm-exit a {
+  text-decoration: none;
+}
+
+.confirm-exit h1 {
+  font-size: 2rem;
+  color: #FFC164;
+  max-width: 90%;
+}
+
+.exit-btn {
+  font-size: 1.2rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 10px;
+  width: 250px;
+  max-width: 90%;
+  cursor: pointer;
+}
+
+.yes-btn {
+  background-color: #00A2FF;
+  color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.yes-btn:hover {
+  background-color: #00A2FF; /* Slightly darker blue */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.no-btn {
+  background-color: #B73164;
+  color: #FFC164;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.no-btn:hover {
+  background-color: #B73164; /* Slightly darker pink-red */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+
+
+
+/* fill blank */
+.fill-blank-slide .title {
+    margin-bottom: 2rem; /* Add space between title and content */
+    text-align: center;  /* Optional: center the title too if you want */
+}
+
+.fill-blank-slide .sentence {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #0fa3f1;
+    text-align: center; /* Center the sentence */
+}
+
+.option-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.blank-option {
+    padding: 18px 30px;
+    font-size: 22px;
+    border-radius: 20px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #B73164;
+}
+
+.blank-option:hover {
+    background-color: #ddd;
+}
+
+.blank-option.correct {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.blank-option.incorrect {
+    background-color: #f44336;
+    color: white;
+}
+
+.custom-bottom-dialog {
+    position: fixed;
+    bottom: 60px;
+    left: 5%;
+    width: 90vw;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0fa3f1;
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    min-height: 120px;
+    transition: background-color 0.3s;
+
+    animation: fadeInUp 0.3s ease-out; /* Add this */
+}
+
+
+.custom-bottom-dialog.is-wrong {
+    background-color: #B73164; /* matches audio button */
+}
+.custom-bottom-dialog .left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.custom-bottom-dialog .dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.custom-bottom-dialog .dialog-sub {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.custom-bottom-dialog .custom-continue {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.fill-blank-slide .audio-section {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.audio-btn {
+    background-color: #B73164;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+.audio-btn img {
+    height: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+
+.small-sentence {
+    font-size: 1.2rem;
+    color: #0fa3f1;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* 2x2 image choice */
+.audio-sentence {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.audio-sentence .audio-btn {
+    background-color: #B73164;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+}
+
+.audio-sentence .audio-btn img {
+    height: 30px;
+}
+
+.audio-sentence .sentence {
+    color: #0fa3f1;
+    margin: 0;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.image-option {
+    background: #f0f0f0;
+    border: none;
+    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-option:hover {
+    background: #e0e0e0;
+    cursor: pointer;
+    transform: scale(1.02);
+}
+
+.image-option:disabled {
+    cursor: default;
+    opacity: 0.8;
+}
+
+.image-option img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.2s;
+}
+
+.image-option.correct {
+    background: #d4edda;
+    box-shadow: 0 0 0 2px #28a745;
+}
+
+.image-option.incorrect {
+    background: #f8d7da;
+    box-shadow: 0 0 0 2px #dc3545;
+}
+
+
+/* Optional: responsive tweaks */
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+
+  #words-buttons .btn {
+    width: 100%;
+    max-width: 250px;
+    font-size: 1.5rem;
+  }
+
+  .Continue_btn {
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .progress_bar {
+    margin-left: 0;
+  }
+
+  .wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Speaking */
+
+
+.speak-phrase-title {
+  color: #f39c12;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.speak-phrase-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #8e44ad;
+}
+
+.speak-phrase-audio-btn img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.speak-phrase-mic-btn {
+  background-color: #2c3e50;
+  color: #f1c40f;
+  padding: 20px 40px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.speak-phrase-spoken {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  text-align: center;
+}
+
+.highlighted-text span {
+  color: grey;
+}
+
+.highlighted-text .matched {
+  color: green;
+}
+
+.speak-phrase-skip-btn {
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+  text-align: center;
+  display: block;
+  margin-left: auto;  
+  margin-right: auto;
+  cursor: pointer;
+}
+
+
+
